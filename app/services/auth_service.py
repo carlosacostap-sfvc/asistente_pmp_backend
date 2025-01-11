@@ -46,12 +46,12 @@ class AuthService:
 
     async def get_current_user(self, token: str) -> Optional[UserInDB]:
         try:
-            self.client.auth.set_session(token, None)
-            user = self.client.auth.get_user()
-            if user:
+            # En lugar de establecer la sesión, simplemente verificamos el token
+            response = self.client.auth.get_user(token)
+            if response and hasattr(response, 'user'):
                 return UserInDB(
-                    id=user.id,
-                    email=user.email,
+                    id=response.user.id,
+                    email=response.user.email,
                     is_active=True
                 )
             return None

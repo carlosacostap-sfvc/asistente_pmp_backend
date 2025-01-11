@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.routes import questions, practice_sessions, auth
+from app.api.routes import questions, practice_sessions, auth, chat
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -22,3 +22,4 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(questions.router, prefix="/api", tags=["questions"])
 app.include_router(practice_sessions.router, prefix="/api", tags=["practice-sessions"])
+app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
