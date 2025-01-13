@@ -9,6 +9,7 @@ class SupabaseService:
 
     async def create_practice_session(self, session: PracticeSessionCreate) -> PracticeSession:
         response = self.client.table('practice_sessions').insert({
+            'user_id': session.user_id,  # Agregamos el user_id
             'start_time': session.start_time.isoformat(),
             'end_time': session.end_time.isoformat(),
             'personas_total': session.personas_total,
